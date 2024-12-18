@@ -3,17 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Run External Website in iFrame</title>
+    <title>Embed External Website with Search</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        #urlInput {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        #searchButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
         iframe {
             width: 100%;
             height: 600px;
             border: none;
+            margin-top: 20px;
+        }
+
+        h1 {
+            color: #333;
         }
     </style>
 </head>
 <body>
-    <h1>Embed External Website for Dev Purposes</h1>
-    <iframe src="https://example.com" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+
+    <h1>Embed External Website via Search</h1>
+
+    <label for="urlInput">Enter Website URL:</label>
+    <input type="text" id="urlInput" placeholder="e.g., https://example.com">
+    <button id="searchButton">Load Website</button>
+
+    <h2>Website Preview:</h2>
+    <iframe id="websiteIframe" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+
+    <script>
+        document.getElementById('searchButton').addEventListener('click', function() {
+            const url = document.getElementById('urlInput').value.trim();
+            if (url) {
+                // Check if the URL includes the scheme (http:// or https://)
+                if (!/^https?:\/\//i.test(url)) {
+                    alert('Please enter a valid URL with "http://" or "https://"');
+                    return;
+                }
+
+                // Set the iframe's src to the entered URL
+                const iframe = document.getElementById('websiteIframe');
+                iframe.src = url;
+            } else {
+                alert('Please enter a URL!');
+            }
+        });
+    </script>
+
 </body>
 </html>
